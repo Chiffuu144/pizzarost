@@ -12,6 +12,15 @@ const {
 const { reviewableOrderFilter } = require('../utils/orderLifecycle');
 
 const profanityFilter = new Filter();
+profanityFilter.addWords(
+    'tanga', 'bobo', 'baliw', 'pota', 'puta',
+    'gago', 'gaga', 'gagi', 'engot', 'ulol', 'tarantado', 'kupal',
+    'lintik', 'leche', 'punyeta', 'putangina',
+    'tangina', 'tanginamo', 'pakyu', 'bwisit', 'buwisit',
+    'siraulo', 'inutil', 'hayop', 'animal',
+    'shit', 'bullshit', 'fuck', 'fucking', 'fucker',
+    'bitch', 'bastard', 'asshole', 'damn', 'crap'
+);
 const STORE_FRONT_CATEGORIES = new Set([
     'Pizza',
     'Cheese Pizza',
