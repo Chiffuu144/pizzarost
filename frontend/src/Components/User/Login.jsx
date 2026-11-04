@@ -34,12 +34,19 @@ const Login = () => {
     })
 
     const redirect = location.search ? new URLSearchParams(location.search).get('redirect') : ''
+    const returnTo = typeof location.state?.from === 'string' &&
+        location.state.from.startsWith('/') &&
+        !location.state.from.startsWith('//')
+        ? location.state.from
+        : null
 
     useEffect(() => {
         if (isAuthenticated && redirect === 'shipping') {
-            navigate(`/${redirect}`)
+            navigate('/shipping', { replace: true })
+        } else if (isAuthenticated && returnTo) {
+            navigate(returnTo, { replace: true })
         } else if (isAuthenticated) {
-            navigate(user?.role === 'admin' ? '/dashboard' : '/')
+            navigate(user?.role === 'admin' ? '/dashboard' : '/', { replace: true })
         }
         if (error) {
             if (error !== 'Login first to access this resource') {
@@ -47,7 +54,7 @@ const Login = () => {
             }
             dispatch(clearErrors());
         }
-    }, [error, isAuthenticated, user, dispatch, navigate, redirect])
+    }, [error, isAuthenticated, user, dispatch, navigate, redirect, returnTo])
 
     return (
         <main className="pizzaro-login" role="dialog" aria-modal="true" aria-label="Sign in to Pizzaro">

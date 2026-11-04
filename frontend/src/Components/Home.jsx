@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Product from './Product/Product'
 import MetaData from './Layout/MetaData'
 import Loader from './Layout/Loader';
@@ -17,6 +17,7 @@ const Home = () => {
     // const [products, setProducts] = useState([])
     const { keyword } = useParams()
     const navigate = useNavigate()
+    const location = useLocation()
     const [pageSelection, setPageSelection] = useState({ keyword: undefined, page: 1 })
     const currentPage = pageSelection.keyword === keyword ? pageSelection.page : 1
     const setCurrentPage = useCallback(
@@ -89,6 +90,13 @@ const Home = () => {
             await dispatch(addItemToCart(featuredPizza._id, 1))
             toast.success(`${featuredPizza.name} added to your cart`)
         } catch (cartError) {
+            if (cartError.code === 'LOGIN_REQUIRED') {
+                toast.error(cartError.message)
+                navigate('/login', {
+                    state: { from: `${location.pathname}${location.search}${location.hash}` }
+                })
+                return
+            }
             toast.error(cartError.response?.data?.message || cartError.message || 'Unable to add this pizza to your cart')
         }
     }

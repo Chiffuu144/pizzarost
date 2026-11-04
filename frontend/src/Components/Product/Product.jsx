@@ -1,11 +1,13 @@
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import { addItemToCart } from '../../actions/cartActions'
 import { formatCurrency } from '../../utils/formatCurrency'
 
 const Product = ({ product }) => {
     const dispatch = useDispatch()
+    const location = useLocation()
+    const navigate = useNavigate()
 
     const addToCart = async () => {
         if (product.stock < 1) {
@@ -17,6 +19,13 @@ const Product = ({ product }) => {
             await dispatch(addItemToCart(product._id, 1))
             toast.success(`${product.name} added to your cart`)
         } catch (error) {
+            if (error.code === 'LOGIN_REQUIRED') {
+                toast.error(error.message)
+                navigate('/login', {
+                    state: { from: `${location.pathname}${location.search}${location.hash}` }
+                })
+                return
+            }
             toast.error(error.response?.data?.message || error.message || 'Unable to add this product to your cart')
         }
     }

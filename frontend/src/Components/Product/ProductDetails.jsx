@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
@@ -48,6 +48,8 @@ const ProductGallery = ({ product }) => {
 
 const ProductDetails = () => {
     const { id } = useParams()
+    const location = useLocation()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { loading, error, product } = useSelector(state => state.productDetails)
     const { user } = useSelector(state => state.auth)
@@ -132,6 +134,13 @@ const ProductDetails = () => {
             await dispatch(addItemToCart(id, quantity))
             toast.success(`${product.name} added to your cart`)
         } catch (requestError) {
+            if (requestError.code === 'LOGIN_REQUIRED') {
+                toast.error(requestError.message)
+                navigate('/login', {
+                    state: { from: `${location.pathname}${location.search}${location.hash}` }
+                })
+                return
+            }
             toast.error(requestError.response?.data?.message || requestError.message || 'Unable to add this product to your cart')
         }
     }

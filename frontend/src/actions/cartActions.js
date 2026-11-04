@@ -35,6 +35,13 @@ export const restoreCartForUser = userId => dispatch => {
 }
 
 export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
+    const { isAuthenticated, user } = getState().auth
+    if (!isAuthenticated || !user) {
+        throw Object.assign(new Error('Login first to add items to your cart.'), {
+            code: 'LOGIN_REQUIRED'
+        })
+    }
+
     const { data } = await axios.get(`${import.meta.env.VITE_API}/product/${id}`)
     const product = data.product
 
