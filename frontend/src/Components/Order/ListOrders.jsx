@@ -19,7 +19,7 @@ import { DataGrid, } from '@mui/x-data-grid'
 
 const ListOrders = () => {
     const dispatch = useDispatch();
-    const { loading, error, orders } = useSelector(state => state.myOrders);
+    const { loading, error, orders = [] } = useSelector(state => state.myOrders);
     // const [loading, setLoading] = useState(true)
     // const [error, setError] = useState('')
     // const [myOrdersList, setMyOrdersList] = useState([])
@@ -115,12 +115,15 @@ const ListOrders = () => {
     }));
     useEffect(() => {
         dispatch(myOrders());
+    }, [dispatch])
+
+    useEffect(() => {
         if (error) {
             toast.error(error, {
                 position: 'bottom-right'
             });
         }
-    }, [error, dispatch])
+    }, [error])
 
 
 
