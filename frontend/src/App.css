@@ -2772,22 +2772,10 @@ footer {
 }
 
 .pizzaro-social-mark {
-  display: inline-grid;
-  width: 1.2rem;
-  height: 1.2rem;
-  place-items: center;
-  font-family: Arial, sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-}
-
-.pizzaro-social-mark-google {
-  color: #4285f4;
-}
-
-.pizzaro-social-mark-facebook {
-  color: #1877f2;
-  font-size: 1.25rem;
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 1.25rem;
 }
 
 .pizzaro-sign-up {
