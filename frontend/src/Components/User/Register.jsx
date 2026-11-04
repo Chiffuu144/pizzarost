@@ -16,7 +16,7 @@ const Register = () => {
         email: '',
         password: '',
     })
-    const [avatar, setAvatar] = useState('')
+    const [avatar, setAvatar] = useState(null)
     const [avatarPreview, setAvatarPreview] = useState('')
     const [avatarName, setAvatarName] = useState('')
     const [showPassword, setShowPassword] = useState(false)
@@ -44,7 +44,7 @@ const Register = () => {
         formData.set('name', name)
         formData.set('email', email)
         formData.set('password', password)
-        formData.set('avatar', avatar)
+        if (avatar) formData.set('avatar', avatar)
 
         dispatch(register(formData))
     }
@@ -58,12 +58,18 @@ const Register = () => {
         const file = event.target.files?.[0]
         if (!file) return
 
+        if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024) {
+            toast.error('Choose a JPEG, PNG, or WebP photo up to 5 MB.')
+            event.target.value = ''
+            return
+        }
+
         setAvatarName(file.name)
+        setAvatar(file)
         const reader = new FileReader()
         reader.onload = () => {
             if (typeof reader.result === 'string') {
                 setAvatarPreview(reader.result)
-                setAvatar(reader.result)
             }
         }
         reader.onerror = () => toast.error('Unable to read this image. Please choose another file.')
@@ -159,12 +165,12 @@ const Register = () => {
                                     type="file"
                                     name="avatar"
                                     id="avatar_upload"
-                                    accept="image/*"
+                                    accept="image/jpeg,image/png,image/webp"
                                     onChange={onChange}
                                     required
                                 />
                                 <label htmlFor="avatar_upload">Choose a photo</label>
-                                <span>{avatarName || 'JPG, PNG, or GIF'}</span>
+                                <span>{avatarName || 'JPEG, PNG, or WebP up to 5 MB'}</span>
                             </div>
                         </div>
                     </div>

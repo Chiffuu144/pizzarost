@@ -14,8 +14,8 @@ const UpdateProfile = () => {
     const navigate = useNavigate()
     const { user } = useSelector(state => state.auth)
     const { error, isUpdated, loading } = useSelector(state => state.user)
-    const [avatar, setAvatar] = useState('')
-    const avatarPreview = avatar || user?.avatar?.url || '/images/default_avatar.jpg'
+    const [avatar, setAvatar] = useState(null)
+    const [avatarPreview, setAvatarPreview] = useState('')
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -61,9 +61,10 @@ const UpdateProfile = () => {
         }
         const reader = new FileReader()
         reader.onload = () => {
-            setAvatar(reader.result)
+            if (typeof reader.result === 'string') setAvatarPreview(reader.result)
         }
         reader.onerror = () => toast.error(`Unable to read ${file.name}`)
+        setAvatar(file)
         reader.readAsDataURL(file)
     }
 
@@ -109,7 +110,7 @@ const UpdateProfile = () => {
                         <div className="form-group">
                             <label htmlFor="avatar_upload">Profile photo</label>
                             <div className="d-flex align-items-center">
-                                <img src={avatarPreview} className="avatar rounded-circle mr-3" alt="Avatar preview" />
+                                <img src={avatarPreview || user?.avatar?.url || '/images/default_avatar.jpg'} className="avatar rounded-circle mr-3" alt="Avatar preview" />
                                 <input id="avatar_upload" name="avatar" type="file" className="form-control"
                                     accept="image/jpeg,image/png,image/webp" onChange={handleAvatarChange} />
                             </div>

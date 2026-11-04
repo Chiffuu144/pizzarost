@@ -40,9 +40,7 @@ export const register = (userData) => async (dispatch) => {
     try {
         dispatch({ type: REGISTER_USER_REQUEST })
         const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+            withCredentials: true
         }
         const { data } = await axios.post(`${import.meta.env.VITE_API}/register`, userData, config)
 
@@ -202,9 +200,6 @@ export const updateProfile = (userData) => async (dispatch) => {
 
         dispatch({ type: UPDATE_PROFILE_REQUEST })
         const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
             withCredentials: true,
         }
         const { data } = await axios.put(`${import.meta.env.VITE_API}/me/update`, userData, config)

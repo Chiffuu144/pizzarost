@@ -5,6 +5,7 @@ const sendEmail = require('../utils/sendEmail')
 const sendToken = require('../utils/jwtToken');
 const validator = require('validator')
 const { createPasswordResetEmail } = require('../utils/emailTemplates');
+const uploadAvatarImage = require('../utils/avatarImage');
 
 exports.registerUser = async (req, res, next) => {
     try {
@@ -16,13 +17,8 @@ exports.registerUser = async (req, res, next) => {
             url: 'https://res.cloudinary.com/shopit/image/upload/v1606305757/avatars/default_avatar_ohsezt.jpg'
         }
 
-        // Upload avatar to Cloudinary if provided
-        if (req.body.avatar && req.body.avatar !== '' && req.body.avatar !== 'undefined') {
-            const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-                folder: 'avatars',
-                width: 150,
-                crop: "scale"
-            });
+        if (req.file) {
+            const result = await uploadAvatarImage(req.file);
             avatarData = {
                 public_id: result.public_id,
                 url: result.secure_url
@@ -300,18 +296,14 @@ exports.updateProfile = async (req, res, next) => {
             address: normalizedAddress
         }
 
-        // Update avatar only if a new one was provided
-        if (req.body.avatar && req.body.avatar !== '' && req.body.avatar !== 'undefined') {
-            let user = await User.findById(req.user.id)
-            if (user && user.avatar && user.avatar.public_id) {
-                await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+        let previousAvatarPublicId;
+        if (req.file) {
+            const existingUser = await User.findById(req.user.id).select('avatar');
+            if (!existingUser) {
+                return res.status(404).json({ message: 'User not found' });
             }
-            const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-                folder: 'avatars',
-                width: 150,
-                crop: "scale"
-            })
-
+            previousAvatarPublicId = existingUser.avatar?.public_id;
+            const result = await uploadAvatarImage(req.file);
             newUserData.avatar = {
                 public_id: result.public_id,
                 url: result.secure_url
@@ -325,6 +317,14 @@ exports.updateProfile = async (req, res, next) => {
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' })
+        }
+
+        if (previousAvatarPublicId && previousAvatarPublicId !== user.avatar?.public_id) {
+            try {
+                await cloudinary.v2.uploader.destroy(previousAvatarPublicId);
+            } catch (error) {
+                console.error(`Unable to delete previous avatar ${previousAvatarPublicId}:`, error);
+            }
         }
 
         return res.status(200).json({
