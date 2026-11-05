@@ -11,13 +11,13 @@ import {
     ShoppingBagRounded,
     WarningAmberRounded
 } from '@mui/icons-material'
-import { Alert, Avatar, Box, Button, InputAdornment, Menu, MenuItem, Stack, TextField, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Alert, Autocomplete, Avatar, Box, Button, InputAdornment, Menu, MenuItem, Stack, TextField, Typography } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import MetaData from '../Layout/MetaData'
 import Sidebar from './SideBar'
 import { allOrders } from '../../actions/orderActions'
-import { getProducts } from '../../actions/productActions'
+import { getAdminProducts } from '../../actions/productActions'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { isRevenueOrder } from '../../utils/orderRevenue'
 import MonthlySalesChart from './MonthlySalesChart'
@@ -25,6 +25,7 @@ import { MetricCard, RevenueWaveChart, TrendingItemsList } from './DashboardWidg
 
 const Dashboard = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { products = [], productsCount, error: productError } = useSelector(state => state.products)
     const { orders = [], error: orderError } = useSelector(state => state.allOrders)
     const { user } = useSelector(state => state.auth)
@@ -34,9 +35,12 @@ const Dashboard = () => {
     const [notificationAnchor, setNotificationAnchor] = useState(null)
 
     useEffect(() => {
-        if (productsCount === undefined) dispatch(getProducts())
+        dispatch(getAdminProducts())
+    }, [dispatch])
+
+    useEffect(() => {
         if (!orders.length) dispatch(allOrders())
-    }, [dispatch, productsCount, orders.length])
+    }, [dispatch, orders.length])
 
     useEffect(() => {
         let current = true
@@ -50,10 +54,55 @@ const Dashboard = () => {
         return () => { current = false }
     }, [])
 
-    const filteredProducts = useMemo(() => {
+    const searchOptions = useMemo(() => {
         const query = search.trim().toLowerCase()
-        return query ? products.filter(product => product.name?.toLowerCase().includes(query)) : products
-    }, [products, search])
+        if (!query) return []
+
+        const includesQuery = values => values.some(value => String(value || '').toLowerCase().includes(query))
+        const productOptions = products
+            .filter(product => includesQuery([product.name, product.category, product.description]))
+            .slice(0, 8)
+            .map(product => ({
+                id: `product-${product._id}`,
+                type: 'Menu',
+                label: product.name,
+                detail: `${product.category || 'Menu item'} · ${formatCurrency(product.price)}`,
+                to: `/admin/product/${product._id}`
+            }))
+        const orderOptions = orders
+            .filter(order => includesQuery([
+                order._id,
+                String(order._id || '').slice(-6),
+                order.orderStatus,
+                order.user?.name,
+                order.user?.email,
+                ...(order.orderItems || []).map(item => item.name)
+            ]))
+            .slice(0, 8)
+            .map(order => ({
+                id: `order-${order._id}`,
+                type: 'Orders',
+                label: `Order #${String(order._id).slice(-6)}`,
+                detail: `${order.orderStatus} · ${formatCurrency(order.totalPrice)}`,
+                to: `/admin/order/${order._id}`
+            }))
+        const customerOptions = customers
+            .filter(customer => customer.role !== 'admin' && includesQuery([
+                customer.name,
+                customer.email,
+                customer._id
+            ]))
+            .slice(0, 8)
+            .map(customer => ({
+                id: `customer-${customer._id}`,
+                type: 'Customers',
+                label: customer.name || customer.email,
+                detail: customer.email || 'Customer account',
+                to: `/admin/user/${customer._id}`
+            }))
+
+        return [...productOptions, ...orderOptions, ...customerOptions]
+    }, [customers, orders, products, search])
     const completedOrders = orders.filter(order => ['Completed', 'Shipped', 'Delivered'].includes(order.orderStatus))
     const totalRevenue = orders
         .filter(isRevenueOrder)
@@ -88,12 +137,50 @@ const Dashboard = () => {
                 <main className="pizzaro-admin-main">
                     <header className="pizzaro-admin-topbar">
                         <div className="pizzaro-admin-breadcrumb"><Typography component="span">Dashboard</Typography><span>/</span><strong>Overview</strong></div>
-                        <TextField
+                        <Autocomplete
                             className="pizzaro-admin-search"
-                            placeholder="Search orders, menu, customers..."
-                            value={search}
-                            onChange={event => setSearch(event.target.value)}
-                            InputProps={{ startAdornment: <InputAdornment position="start"><SearchRounded fontSize="small" /></InputAdornment> }}
+                            options={searchOptions}
+                            groupBy={option => option.type}
+                            getOptionLabel={option => option.label}
+                            filterOptions={options => options}
+                            noOptionsText={search.trim() ? 'No matching orders, menu items, or customers' : 'Type to search orders, menu items, or customers'}
+                            onInputChange={(_, value) => setSearch(value)}
+                            onChange={(_, option) => {
+                                if (option) {
+                                    setSearch('')
+                                    navigate(option.to)
+                                }
+                            }}
+                            renderOption={(props, option) => (
+                                <li {...props} key={option.id}>
+                                    <Box>
+                                        <Typography component="span">{option.label}</Typography>
+                                        <Typography component="small" display="block">{option.detail}</Typography>
+                                    </Box>
+                                </li>
+                            )}
+                            renderInput={params => (
+                                <TextField
+                                    {...params}
+                                    placeholder="Search orders, menu, customers..."
+                                    slotProps={{
+                                        ...params.slotProps,
+                                        input: {
+                                            ...params.slotProps.input,
+                                            startAdornment: (
+                                                <>
+                                                    <InputAdornment position="start"><SearchRounded fontSize="small" /></InputAdornment>
+                                                    {params.slotProps.input.startAdornment}
+                                                </>
+                                            )
+                                        },
+                                        htmlInput: {
+                                            ...params.slotProps.htmlInput,
+                                            'aria-label': 'Search orders, menu items, or customers'
+                                        }
+                                    }}
+                                />
+                            )}
                         />
                         <Stack direction="row" spacing={1.25} alignItems="center" className="pizzaro-admin-actions">
                             <Button component={Link} to="/admin/product" className="pizzaro-quick-action" startIcon={<AddRounded />}>Add product</Button>
@@ -157,7 +244,7 @@ const Dashboard = () => {
                     </section>
 
                     <section className="pizzaro-dashboard-bottom-grid" aria-label="Store analytics">
-                        <TrendingItemsList products={filteredProducts} orders={orders} />
+                        <TrendingItemsList products={products} orders={orders} />
                         <MonthlySalesChart />
                     </section>
                 </main>
