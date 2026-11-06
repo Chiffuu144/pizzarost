@@ -11306,3 +11306,201 @@ nav.navbar.header-navbar.pizzaro-editorial-navbar {
     transition: none;
   }
 }
+
+.pizzaro-password-update-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.pizzaro-password-content {
+  width: 100%;
+  max-width: 700px;
+}
+
+.pizzaro-password-back {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  color: #d3d3d8;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.pizzaro-password-back:hover,
+.pizzaro-password-back:focus-visible {
+  color: #fff;
+  text-decoration: none;
+}
+
+.pizzaro-password-back:focus-visible,
+.pizzaro-password-visibility:focus-visible,
+.pizzaro-password-submit:focus-visible {
+  outline: 2px solid #ff7b82;
+  outline-offset: 3px;
+}
+
+.pizzaro-password-form {
+  padding: clamp(1.2rem, 3.5vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: #1b1b20;
+  color: #f7f7f8;
+}
+
+.pizzaro-password-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.7rem;
+}
+
+.pizzaro-password-heading img {
+  display: block;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+}
+
+.pizzaro-password-heading h1 {
+  margin: 0;
+  color: #f8f9fa;
+  font-family: var(--pizzaro-editorial-sans);
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.pizzaro-password-heading p {
+  margin: 0.35rem 0 0;
+  color: #b7b7c0;
+  font-family: var(--pizzaro-editorial-sans);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.pizzaro-password-fields {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.pizzaro-password-field {
+  min-width: 0;
+}
+
+.pizzaro-password-field label {
+  display: block;
+  margin: 0 0 0.5rem;
+  color: #ededf0;
+  font-family: var(--pizzaro-editorial-sans);
+  font-size: 0.87rem;
+  font-weight: 550;
+}
+
+.pizzaro-password-input {
+  position: relative;
+}
+
+.pizzaro-password-input input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.65rem 3rem 0.65rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: #131316;
+  color: #f7f7f8;
+  font-family: var(--pizzaro-editorial-sans);
+  font-size: 0.9rem;
+  color-scheme: dark;
+}
+
+.pizzaro-password-input input:focus {
+  border-color: #ff7b82;
+  outline: 2px solid rgba(255, 123, 130, 0.2);
+  outline-offset: 1px;
+}
+
+.pizzaro-password-visibility {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  transform: translateY(-50%);
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #c1c1c7;
+  cursor: pointer;
+}
+
+.pizzaro-password-visibility:hover {
+  background: #29292f;
+  color: #fff;
+}
+
+.pizzaro-password-submit {
+  display: inline-flex;
+  min-width: 170px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.45rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--pizzaro-crimson);
+  border-radius: 6px;
+  background: var(--pizzaro-crimson);
+  color: #fff;
+  font-family: var(--pizzaro-editorial-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background-color 140ms ease, border-color 140ms ease;
+  cursor: pointer;
+}
+
+.pizzaro-password-submit:hover:not(:disabled) {
+  border-color: var(--pizzaro-crimson-hover);
+  background: var(--pizzaro-crimson-hover);
+}
+
+.pizzaro-password-submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+@media (max-width: 600px) {
+  .pizzaro-password-update-page {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .pizzaro-password-form {
+    padding: 1.15rem;
+  }
+
+  .pizzaro-password-heading {
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .pizzaro-password-heading img {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .pizzaro-password-submit {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pizzaro-password-submit {
+    transition: none;
+  }
+}
