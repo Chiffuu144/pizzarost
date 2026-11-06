@@ -2253,6 +2253,11 @@ footer {
   gap: 0.5rem;
   margin: 0;
   padding: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
   text-decoration: none;
 }
 
@@ -10800,6 +10805,504 @@ nav.navbar.header-navbar.pizzaro-editorial-navbar {
 
 @media (prefers-reduced-motion: reduce) {
   .pizzaro-editorial-navbar .pizzaro-account-menu .pizzaro-account-menu-item {
+    transition: none;
+  }
+}
+
+.pizzaro-profile-page {
+  min-height: 60vh;
+  padding: clamp(2rem, 5vw, 3.75rem) max(1rem, calc((100% - 1040px) / 2));
+  background: var(--pizzaro-night);
+  color: var(--pizzaro-dark-ink);
+  font-family: var(--pizzaro-editorial-sans);
+}
+
+.pizzaro-profile-content {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.pizzaro-profile-heading {
+  margin-bottom: 1.5rem;
+}
+
+.pizzaro-profile-heading h1 {
+  margin: 0;
+  color: #f8f9fa;
+  font-family: var(--pizzaro-editorial-sans);
+  font-size: clamp(1.45rem, 2.4vw, 1.8rem);
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.pizzaro-profile-heading p {
+  margin: 0.45rem 0 0;
+  color: #b7b7c0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.pizzaro-profile-panel,
+.pizzaro-profile-form {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: #1b1b20;
+  color: #f7f7f8;
+}
+
+.pizzaro-profile-identity {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(1.1rem, 3vw, 1.6rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pizzaro-profile-avatar {
+  width: 76px;
+  height: 76px;
+  overflow: hidden;
+  margin: 0;
+  border-radius: 50%;
+  background: #29292f;
+}
+
+.pizzaro-profile-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pizzaro-profile-avatar-fallback {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: #302326;
+  color: #ff9298;
+  font-size: 1.15rem;
+  font-weight: 650;
+}
+
+.pizzaro-profile-identity-copy {
+  min-width: 0;
+}
+
+.pizzaro-profile-identity-copy h2 {
+  overflow: hidden;
+  margin: 0;
+  color: #f8f9fa;
+  font-size: 1.05rem;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pizzaro-profile-identity-copy p {
+  overflow-wrap: anywhere;
+  margin: 0.3rem 0 0;
+  color: #b7b7c0;
+  font-size: 0.85rem;
+}
+
+.pizzaro-profile-edit,
+.pizzaro-profile-save,
+.pizzaro-profile-secondary {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-family: var(--pizzaro-editorial-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.pizzaro-profile-edit,
+.pizzaro-profile-save {
+  background: var(--pizzaro-crimson);
+  color: #fff;
+  cursor: pointer;
+}
+
+.pizzaro-profile-edit:hover,
+.pizzaro-profile-edit:focus-visible,
+.pizzaro-profile-save:hover:not(:disabled),
+.pizzaro-profile-save:focus-visible:not(:disabled) {
+  background: var(--pizzaro-crimson-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.pizzaro-profile-secondary {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #ededf0;
+}
+
+.pizzaro-profile-secondary:hover,
+.pizzaro-profile-secondary:focus-visible {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  text-decoration: none;
+}
+
+.pizzaro-profile-edit:focus-visible,
+.pizzaro-profile-save:focus-visible,
+.pizzaro-profile-secondary:focus-visible {
+  outline: 2px solid #ff7b82;
+  outline-offset: 3px;
+}
+
+.pizzaro-profile-details {
+  padding: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.pizzaro-profile-details > h2,
+.pizzaro-profile-form-heading h2 {
+  margin: 0;
+  color: #f7f7f8;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.pizzaro-profile-details dl {
+  display: grid;
+  margin: 1rem 0 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pizzaro-profile-detail {
+  min-width: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 7px;
+  background: #222227;
+}
+
+.pizzaro-profile-detail dt {
+  margin: 0;
+  color: #b7b7c0;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.pizzaro-profile-detail dd {
+  overflow-wrap: anywhere;
+  margin: 0.4rem 0 0;
+  color: #f7f7f8;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.pizzaro-profile-detail dd.is-missing {
+  color: #c1c1c7;
+  font-style: italic;
+}
+
+.pizzaro-profile-hint {
+  margin: 1rem 0 0;
+  color: #c1c1c7;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.pizzaro-profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0 clamp(1.1rem, 3vw, 1.6rem) clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.pizzaro-profile-form {
+  width: 100%;
+  padding: clamp(1.1rem, 3vw, 1.75rem);
+}
+
+.pizzaro-profile-form-section + .pizzaro-profile-form-section {
+  margin-top: 1.65rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pizzaro-profile-form-heading {
+  margin-bottom: 1.15rem;
+}
+
+.pizzaro-profile-form-heading p {
+  margin: 0.35rem 0 0;
+  color: #b7b7c0;
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+.pizzaro-profile-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pizzaro-profile-field {
+  min-width: 0;
+}
+
+.pizzaro-profile-field.is-wide {
+  grid-column: 1 / -1;
+}
+
+.pizzaro-profile-form .pizzaro-profile-field label {
+  display: block;
+  margin: 0 0 0.45rem;
+  color: #ededf0;
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.pizzaro-profile-form .pizzaro-profile-field .form-control {
+  width: 100%;
+  min-height: 42px;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: #131316;
+  color: #f7f7f8;
+  font-family: var(--pizzaro-editorial-sans);
+  font-size: 0.88rem;
+  color-scheme: dark;
+}
+
+.pizzaro-profile-form .pizzaro-profile-field textarea.form-control {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.pizzaro-profile-form .form-control::placeholder {
+  color: #b7b7c0;
+  opacity: 1;
+}
+
+.pizzaro-profile-form .form-control:focus {
+  border-color: #ff7b82;
+  outline: 2px solid rgba(230, 57, 70, 0.25);
+  outline-offset: 1px;
+  box-shadow: none;
+}
+
+.pizzaro-profile-form .form-control.is-invalid {
+  border-color: #ff7b82;
+}
+
+.pizzaro-profile-form .invalid-feedback {
+  display: block;
+  margin-top: 0.4rem;
+  color: #ff9a9f;
+  font-size: 0.78rem;
+}
+
+.pizzaro-profile-photo-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pizzaro-profile-photo-preview {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  border-radius: 50%;
+  background: #29292f;
+  object-fit: cover;
+}
+
+.pizzaro-profile-photo-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff9298;
+  font-size: 1.15rem;
+  font-weight: 650;
+}
+
+.pizzaro-profile-upload {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 76px;
+  flex: 1;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  border: 1px dashed rgba(255, 255, 255, 0.28);
+  border-radius: 7px;
+  background: #151518;
+  cursor: pointer;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.pizzaro-profile-upload:hover,
+.pizzaro-profile-upload:focus-within {
+  border-color: #ff7b82;
+  background: #1d191c;
+}
+
+.pizzaro-profile-upload input {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pizzaro-profile-upload input:focus-visible {
+  outline: 2px solid #ff7b82;
+  outline-offset: 3px;
+}
+
+.pizzaro-profile-upload-mark {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: #292326;
+}
+
+.pizzaro-profile-upload-mark img {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+.pizzaro-profile-upload-copy {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 0.25rem;
+}
+
+.pizzaro-profile-upload-copy strong,
+.pizzaro-profile-upload-copy > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pizzaro-profile-upload-copy strong {
+  color: #f7f7f8;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.pizzaro-profile-upload-copy > span {
+  color: #b7b7c0;
+  font-size: 0.76rem;
+  font-weight: 400;
+}
+
+.pizzaro-profile-upload-action {
+  flex: 0 0 auto;
+  color: #ff9298;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.pizzaro-profile-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pizzaro-profile-save:disabled {
+  border-color: #59595f;
+  background: #59595f;
+  color: #e1e1e4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .pizzaro-profile-page {
+    padding: 1.75rem 1rem 2.5rem;
+  }
+
+  .pizzaro-profile-identity {
+    grid-template-columns: 60px minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .pizzaro-profile-avatar,
+  .pizzaro-profile-photo-preview {
+    width: 60px;
+    height: 60px;
+  }
+
+  .pizzaro-profile-photo-preview {
+    flex-basis: 60px;
+  }
+
+  .pizzaro-profile-edit {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .pizzaro-profile-details dl,
+  .pizzaro-profile-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pizzaro-profile-field.is-wide {
+    grid-column: auto;
+  }
+
+  .pizzaro-profile-actions {
+    flex-direction: column;
+  }
+
+  .pizzaro-profile-actions .pizzaro-profile-secondary,
+  .pizzaro-profile-form-actions .pizzaro-profile-secondary,
+  .pizzaro-profile-form-actions .pizzaro-profile-save {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .pizzaro-profile-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .pizzaro-profile-photo-control {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pizzaro-profile-upload {
+    width: 100%;
+    min-height: 68px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pizzaro-profile-edit,
+  .pizzaro-profile-save,
+  .pizzaro-profile-secondary,
+  .pizzaro-profile-upload {
     transition: none;
   }
 }

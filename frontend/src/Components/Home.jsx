@@ -110,21 +110,6 @@ const Home = () => {
         setCurrentPage(1)
     }
 
-    const viewFullMenu = () => {
-        setCategoryFilter({ keyword: undefined, category: '' })
-        setMinimumRating(0)
-        setHasReviews(false)
-        setReviewKeyword('')
-        setDebouncedReviewKeyword('')
-        setMinPriceDraft('')
-        setMaxPriceDraft('')
-        setAppliedMinPrice('')
-        setAppliedMaxPrice('')
-        setCurrentPage(1)
-        navigate('/#products')
-        document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-
     return (
         <>
             <MetaData title={'Pizza for sharing'} />
@@ -343,12 +328,6 @@ const Home = () => {
                                         size="large"
                                     />
                                 )}
-                                <div className="pizzaro-menu-cta">
-                                    <button type="button" className="pizzaro-outline-button" onClick={viewFullMenu}>
-                                        View Full Menu
-                                        <i className="fa fa-arrow-right" aria-hidden="true" />
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     )}

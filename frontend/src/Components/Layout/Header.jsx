@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../../App.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
@@ -21,6 +21,15 @@ export const Header = () => {
     const avatarUrl = user?.avatar?.url
     const avatarFailed = failedAvatarUrl === avatarUrl
     const initials = user?.name?.trim().split(/\s+/).map(part => part[0]).join('').slice(0, 2).toUpperCase()
+
+    useEffect(() => {
+        if (location.hash === '#!') {
+            navigate(`${location.pathname}${location.search}`, {
+                replace: true,
+                state: location.state
+            })
+        }
+    }, [location.hash, location.pathname, location.search, location.state, navigate])
 
     // const logoutHandler = () => {
     //     logout(navigate('/'));
@@ -115,7 +124,7 @@ export const Header = () => {
                 <div className="header-actions">
                     {user ? (
                         <div className="header-user-menu dropdown">
-                            <Link to="#!" className="header-user-link dropdown-toggle text-white" type="button" id="dropDownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button className="header-user-link dropdown-toggle text-white" type="button" id="dropDownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <figure className="avatar avatar-nav">
                                     {avatarUrl && !avatarFailed ? (
                                         <img
@@ -129,7 +138,7 @@ export const Header = () => {
                                     )}
                                 </figure>
                                 <span className="header-user-name" title={user.name}>{user.name}</span>
-                            </Link>
+                            </button>
 
                             <div className="dropdown-menu dropdown-menu-right pizzaro-account-menu" aria-labelledby="dropDownMenuButton">
                                 <div className="pizzaro-account-menu-heading">
