@@ -63,6 +63,9 @@ exports.loginUser = async (req, res, next) => {
     if (!isPasswordMatched) {
         return res.status(401).json({ message: 'Invalid Email or Password' })
     }
+    if (user.isActive === false) {
+        return res.status(403).json({ message: 'This account has been deactivated. Contact support for help.' })
+    }
     const token = user.getJwtToken();
 
     // res.status(201).json({
@@ -132,6 +135,9 @@ exports.socialLogin = async (req, res, next) => {
         }
 
         let user = userByUid || userByEmail;
+        if (user?.isActive === false) {
+            return res.status(403).json({ success: false, message: 'This account has been deactivated. Contact support for help.' });
+        }
         const defaultAvatar = {
             public_id: `firebase_${claims.uid}`,
             url: typeof claims.picture === 'string' && claims.picture
@@ -430,6 +436,33 @@ exports.updateUser = async (req, res, next) => {
         success: true,
         user
     })
+}
+
+exports.updateUserStatus = async (req, res) => {
+    if (typeof req.body?.isActive !== 'boolean') {
+        return res.status(400).json({ success: false, message: 'Account status must be active or inactive' });
+    }
+
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    if (!req.body.isActive && String(req.user._id) === String(user._id)) {
+        return res.status(400).json({ success: false, message: 'You cannot deactivate your own account' });
+    }
+
+    if (!req.body.isActive && user.role === 'admin' && user.isActive !== false) {
+        const activeAdminCount = await User.countDocuments({ role: 'admin', isActive: { $ne: false } });
+        if (activeAdminCount <= 1) {
+            return res.status(400).json({ success: false, message: 'The last active administrator cannot be deactivated' });
+        }
+    }
+
+    user.isActive = req.body.isActive;
+    await user.save();
+
+    return res.status(200).json({ success: true, user });
 }
 
 exports.logout = async (req, res, next) => {

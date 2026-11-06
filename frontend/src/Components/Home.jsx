@@ -372,11 +372,11 @@ const Home = () => {
                 <section className="pizzaro-promo" id="locations">
                     <div>
                         <p className="pizza-hero-eyebrow">FIND US</p>
-                        <h2>Visit us at TUPT.</h2>
-                        <p>Pizzaro is located at TUPT in Taguig City. Check the map for directions.</p>
+                        <h2>Find us at TUP Taguig.</h2>
+                        <p>Visit Pizzaro at the Technological University of the Philippines–Taguig campus in Taguig City.</p>
                     </div>
                     <a
-                        href="https://www.google.com/maps/search/?api=1&amp;query=TUPT%2C%20Taguig%20City"
+                        href="https://www.google.com/maps/search/?api=1&amp;query=Technological%20University%20of%20the%20Philippines%20Taguig"
                         className="pizza-hero-cta"
                         target="_blank"
                         rel="noreferrer"

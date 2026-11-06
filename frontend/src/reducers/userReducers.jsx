@@ -32,6 +32,10 @@ import {
     UPDATE_USER_SUCCESS,
     UPDATE_USER_RESET,
     UPDATE_USER_FAIL,
+    UPDATE_USER_STATUS_REQUEST,
+    UPDATE_USER_STATUS_SUCCESS,
+    UPDATE_USER_STATUS_RESET,
+    UPDATE_USER_STATUS_FAIL,
     USER_DETAILS_REQUEST,
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
@@ -106,6 +110,12 @@ export const userReducer = (state = {}, action) => {
                 loading: true,
                 isUpdated: false,
             }
+        case UPDATE_USER_STATUS_REQUEST:
+            return {
+                ...state,
+                statusUpdatingId: action.payload,
+                isStatusUpdated: false
+            }
         case UPDATE_PROFILE_SUCCESS:
         case UPDATE_PASSWORD_SUCCESS:
         case UPDATE_USER_SUCCESS:
@@ -114,6 +124,13 @@ export const userReducer = (state = {}, action) => {
                 loading: false,
                 isUpdated: action.payload
             }
+        case UPDATE_USER_STATUS_SUCCESS:
+            return {
+                ...state,
+                statusUpdatingId: null,
+                isStatusUpdated: true,
+                statusUpdatedUser: action.payload
+            }
         case UPDATE_PROFILE_RESET:
         case UPDATE_PASSWORD_RESET:
         case UPDATE_USER_RESET:
@@ -121,13 +138,21 @@ export const userReducer = (state = {}, action) => {
                 ...state,
                 isUpdated: false
             }
+        case UPDATE_USER_STATUS_RESET:
+            return {
+                ...state,
+                isStatusUpdated: false,
+                statusUpdatedUser: null
+            }
         case UPDATE_PROFILE_FAIL:
         case UPDATE_PASSWORD_FAIL:
         case UPDATE_USER_FAIL:
+        case UPDATE_USER_STATUS_FAIL:
         case DELETE_USER_FAIL:
             return {
                 ...state,
                 loading: false,
+                statusUpdatingId: null,
                 error: action.payload
             }
         case DELETE_USER_SUCCESS:
@@ -235,6 +260,14 @@ export const allUsersReducer = (state = { users: [] }, action) => {
                 ...state,
                 loading: false,
                 users: action.payload
+            }
+
+        case UPDATE_USER_STATUS_SUCCESS:
+            return {
+                ...state,
+                users: state.users.map(user => (
+                    user._id === action.payload._id ? action.payload : user
+                ))
             }
 
         case ALL_USERS_FAIL:

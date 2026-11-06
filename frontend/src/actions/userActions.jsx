@@ -27,6 +27,9 @@ import {
     UPDATE_USER_REQUEST,
     UPDATE_USER_SUCCESS,
     UPDATE_USER_FAIL,
+    UPDATE_USER_STATUS_REQUEST,
+    UPDATE_USER_STATUS_SUCCESS,
+    UPDATE_USER_STATUS_FAIL,
     USER_DETAILS_REQUEST,
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
@@ -238,7 +241,7 @@ export const allUsers = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: ALL_USERS_FAIL,
-            payload: error.response.data.message
+            payload: error.response?.data?.message || error.message || 'Unable to load users'
         })
     }
 }
@@ -264,7 +267,7 @@ export const deleteUser = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: DELETE_USER_FAIL,
-            payload: error.response.data.message
+            payload: error.response?.data?.message || error.message || 'Unable to delete user'
         })
     }
 }
@@ -292,6 +295,24 @@ export const updateUser = (id, userData) => async (dispatch) => {
         dispatch({
             type: UPDATE_USER_FAIL,
             payload: error.response.data.message
+        })
+    }
+}
+
+export const updateUserStatus = (id, isActive) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_USER_STATUS_REQUEST, payload: id })
+        const { data } = await axios.put(
+            `${import.meta.env.VITE_API}/admin/user/${id}/status`,
+            { isActive },
+            { headers: { 'Content-Type': 'application/json' }, withCredentials: true }
+        )
+
+        dispatch({ type: UPDATE_USER_STATUS_SUCCESS, payload: data.user })
+    } catch (error) {
+        dispatch({
+            type: UPDATE_USER_STATUS_FAIL,
+            payload: error.response?.data?.message || error.message || 'Unable to update account access'
         })
     }
 }

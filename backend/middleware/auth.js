@@ -14,6 +14,9 @@ exports.isAuthenticatedUser = async (req, res, next) => {
         if (!req.user) {
             return res.status(401).json({ message: 'The account for this session no longer exists' })
         }
+        if (req.user.isActive === false) {
+            return res.status(403).json({ message: 'This account has been deactivated. Contact support for help.' })
+        }
         return next()
     } catch (error) {
         if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {

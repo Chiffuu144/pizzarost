@@ -2,15 +2,18 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import {
     AssessmentOutlined,
     ChevronRight,
+    CloseRounded,
     DashboardOutlined,
     ExitToAppRounded,
     HomeOutlined,
     Inventory2Outlined,
     LocalShippingOutlined,
+    MenuRounded,
     PeopleAltOutlined,
     ReviewsOutlined,
 } from '@mui/icons-material'
 import { Avatar, IconButton, Tooltip } from '@mui/material'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { logout } from '../../actions/userActions'
@@ -28,6 +31,7 @@ const navigation = [
 const Sidebar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const { user } = useSelector(state => state.auth)
     const name = user?.name?.trim() || 'Admin'
     const initials = name.split(/\s+/).map(part => part[0]).join('').slice(0, 2).toUpperCase()
@@ -43,17 +47,30 @@ const Sidebar = () => {
     }
 
     return (
-        <aside className="sidebar-wrapper pizzaro-admin-sidebar">
+        <aside className={`sidebar-wrapper pizzaro-admin-sidebar${mobileMenuOpen ? ' is-mobile-open' : ''}`}>
             <nav id="pizzaro-admin-sidebar" aria-label="Admin navigation">
-                <NavLink to="/dashboard" className="admin-brand">
+                <NavLink to="/dashboard" className="admin-brand" onClick={() => setMobileMenuOpen(false)}>
                     <img className="admin-brand-logo" src="/images/pizzaro-mark.svg" alt="" />
                     <span><strong>Pizzaro</strong><small>Admin User</small></span>
                 </NavLink>
+                <IconButton
+                    className="admin-mobile-menu-toggle"
+                    aria-label={mobileMenuOpen ? 'Close admin menu' : 'Open admin menu'}
+                    aria-controls="pizzaro-admin-navigation-links"
+                    aria-expanded={mobileMenuOpen}
+                    onClick={() => setMobileMenuOpen(isOpen => !isOpen)}
+                >
+                    {mobileMenuOpen ? <CloseRounded /> : <MenuRounded />}
+                </IconButton>
                 <p className="admin-nav-heading">Menu</p>
-                <ul className="admin-nav-list">
+                <ul className="admin-nav-list" id="pizzaro-admin-navigation-links">
                     {navigation.map(({ label, to, icon: Icon }) => (
                         <li key={label}>
-                            <NavLink to={to} className={({ isActive }) => isActive && label !== 'Analytics' ? 'active' : ''}>
+                            <NavLink
+                                to={to}
+                                className={({ isActive }) => isActive && label !== 'Analytics' ? 'active' : ''}
+                                onClick={() => setMobileMenuOpen(false)}
+                            >
                                 <Icon fontSize="small" />
                                 <span>{label}</span>
                                 {label === 'Overview' && <ChevronRight className="admin-nav-arrow" fontSize="small" />}

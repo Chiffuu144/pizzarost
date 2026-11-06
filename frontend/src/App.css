@@ -9750,3 +9750,939 @@ nav.navbar.header-navbar.pizzaro-editorial-navbar {
     white-space: normal;
   }
 }
+
+.pizzaro-admin-page:has(.pizzaro-users-table-wrap) .pizzaro-admin-page-heading {
+  min-height: 0;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+}
+
+.pizzaro-admin-sidebar .admin-mobile-menu-toggle {
+  display: none;
+}
+
+.pizzaro-admin-sidebar .admin-nav-heading {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.pizzaro-users-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pizzaro-users-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 12px 0 20px;
+  border-bottom: 1px solid var(--pizzaro-border);
+}
+
+.pizzaro-users-overview > div {
+  display: grid;
+  gap: 6px;
+  min-width: 104px;
+}
+
+.pizzaro-users-overview span {
+  color: #b7b7c0;
+  font-size: 13px;
+}
+
+.pizzaro-users-overview strong {
+  color: #f7f7f8;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.pizzaro-users-overview strong.is-positive {
+  color: #70d69b;
+}
+
+.pizzaro-users-overview strong.is-negative {
+  color: #ff9a9f;
+}
+
+.pizzaro-users-filters {
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  margin-top: 20px;
+  border-bottom: 1px solid var(--pizzaro-border);
+  scrollbar-width: thin;
+}
+
+.pizzaro-users-filter {
+  display: inline-flex;
+  min-height: 42px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 1px 2px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #b7b7c0;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.pizzaro-users-filter:hover,
+.pizzaro-users-filter.is-selected {
+  color: #fff;
+}
+
+.pizzaro-users-filter.is-selected {
+  border-bottom-color: #e5383b;
+}
+
+.pizzaro-users-filter span {
+  color: #a1a1aa;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pizzaro-users-filter:focus-visible,
+.pizzaro-users-search:focus-within,
+.pizzaro-users-access-toggle:focus-visible,
+.pizzaro-users-actions .pizzaro-admin-row-action:focus-visible {
+  outline: 2px solid #ff7478;
+  outline-offset: 3px;
+}
+
+.pizzaro-users-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0 14px;
+}
+
+.pizzaro-users-search {
+  display: flex;
+  width: min(100%, 340px);
+  min-height: 38px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 11px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 7px;
+  background: #1b1b20;
+  transition: border-color 140ms ease;
+}
+
+.pizzaro-users-search:focus-within {
+  border-color: #e5383b;
+  outline: 0;
+}
+
+.pizzaro-users-search svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  fill: none;
+  stroke: #a1a1aa;
+  stroke-linecap: round;
+  stroke-width: 1.6;
+}
+
+.pizzaro-users-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #f8f8f9;
+  font: inherit;
+  font-size: 13px;
+}
+
+.pizzaro-users-search input::placeholder {
+  color: #a1a1aa;
+  opacity: 1;
+}
+
+.pizzaro-users-toolbar > p {
+  margin: 0;
+  color: #b7b7c0;
+  font-size: 13px;
+}
+
+.pizzaro-users-toolbar > p strong {
+  color: #f8f8f9;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.pizzaro-users-table-wrap {
+  width: 100%;
+  min-width: 0;
+}
+
+.pizzaro-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: left;
+}
+
+.pizzaro-users-table th {
+  height: 40px;
+  padding: 0 12px;
+  color: #b7b7c0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pizzaro-users-table th:first-child,
+.pizzaro-users-table td:first-child {
+  width: 46%;
+  padding-left: 0;
+}
+
+.pizzaro-users-table th:nth-child(2),
+.pizzaro-users-table td:nth-child(2) {
+  width: 18%;
+}
+
+.pizzaro-users-table th:nth-child(3),
+.pizzaro-users-table td:nth-child(3) {
+  width: 17%;
+}
+
+.pizzaro-users-table th:last-child,
+.pizzaro-users-table td:last-child {
+  width: 19%;
+  padding-right: 0;
+}
+
+.pizzaro-users-table tbody tr {
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+  transition: background-color 140ms ease;
+}
+
+.pizzaro-users-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.pizzaro-users-table td {
+  height: 72px;
+  padding: 10px 12px;
+  color: #f2f2f4;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.pizzaro-users-identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.pizzaro-users-avatar.MuiAvatar-root {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(229, 56, 59, 0.17);
+  color: #ffb9bb;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pizzaro-users-identity-copy {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.pizzaro-users-identity-copy strong,
+.pizzaro-users-identity-copy > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pizzaro-users-identity-copy strong {
+  color: #f8f8f9;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pizzaro-users-identity-copy > span {
+  color: #b7b7c0;
+  font-size: 12px;
+}
+
+.pizzaro-users-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #d3d3d8;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.pizzaro-users-status > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7d8582;
+}
+
+.pizzaro-users-status.is-active > span {
+  background: #70d69b;
+}
+
+.pizzaro-users-status.is-inactive {
+  color: #ff9a9f;
+}
+
+.pizzaro-users-status.is-inactive > span {
+  background: #ff7478;
+}
+
+.pizzaro-users-mobile-status {
+  display: none;
+}
+
+.pizzaro-users-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.pizzaro-users-actions .pizzaro-admin-row-action {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+}
+
+.pizzaro-users-access-toggle {
+  position: relative;
+  display: inline-grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pizzaro-users-access-toggle::before {
+  position: absolute;
+  width: 34px;
+  height: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: #45454c;
+  content: '';
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.pizzaro-users-access-toggle > span {
+  position: absolute;
+  top: 11px;
+  left: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e1e1e4;
+  transition: transform 140ms ease;
+}
+
+.pizzaro-users-access-toggle.is-active {
+  background: transparent;
+}
+
+.pizzaro-users-access-toggle.is-active::before {
+  border-color: rgba(112, 214, 155, 0.55);
+  background: #247b50;
+}
+
+.pizzaro-users-access-toggle.is-active > span {
+  transform: translateX(14px);
+  background: #fff;
+}
+
+.pizzaro-users-access-toggle:hover:not(:disabled) {
+  background: transparent;
+}
+
+.pizzaro-users-access-toggle:hover:not(:disabled)::before {
+  border-color: rgba(255, 255, 255, 0.48);
+}
+
+.pizzaro-users-access-toggle.is-active:hover:not(:disabled) {
+  background: transparent;
+}
+
+.pizzaro-users-access-toggle.is-active:hover:not(:disabled)::before {
+  border-color: #70d69b;
+}
+
+.pizzaro-users-access-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pizzaro-users-state {
+  padding: 26px 0;
+  margin: 0;
+  border-top: 1px solid var(--pizzaro-border);
+  color: #c4c4ca;
+  font-size: 14px;
+}
+
+.pizzaro-users-dialog.MuiPaper-root {
+  width: min(100%, 440px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: #222228;
+  color: #f8f8f9;
+}
+
+.pizzaro-users-dialog .MuiDialogTitle-root {
+  padding: 22px 24px 8px;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.pizzaro-users-dialog .MuiDialogContent-root {
+  padding: 8px 24px 14px;
+  color: #d0d0d5;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.pizzaro-users-dialog .MuiDialogContent-root p {
+  margin: 0;
+}
+
+.pizzaro-users-dialog .MuiDialogContent-root strong {
+  color: #fff;
+}
+
+.pizzaro-users-dialog .MuiDialogActions-root {
+  gap: 8px;
+  padding: 12px 24px 20px;
+}
+
+.pizzaro-users-dialog .MuiDialogActions-root .MuiButton-root {
+  min-height: 38px;
+  border-radius: 7px;
+  color: #d8d8dc;
+  font: inherit;
+  font-size: 13px;
+  text-transform: none;
+}
+
+.pizzaro-users-dialog .MuiDialogActions-root .pizzaro-users-dialog-confirm {
+  background: #b92b30;
+  color: #fff;
+}
+
+.pizzaro-users-dialog .MuiDialogActions-root .pizzaro-users-dialog-confirm:hover {
+  background: #d2383d;
+}
+
+.pizzaro-users-dialog .MuiDialogActions-root .MuiButton-root:focus-visible {
+  outline: 2px solid #ff7478;
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .pizzaro-users-overview {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .pizzaro-users-table th:first-child,
+  .pizzaro-users-table td:first-child {
+    width: auto;
+  }
+
+  .pizzaro-users-table th:last-child,
+  .pizzaro-users-table td:last-child {
+    width: 138px;
+  }
+
+  .pizzaro-users-role-column,
+  .pizzaro-users-status-column {
+    display: none;
+  }
+
+  .pizzaro-users-mobile-status {
+    display: block;
+  }
+
+  .pizzaro-users-mobile-status.is-active {
+    color: #70d69b;
+  }
+
+  .pizzaro-users-mobile-status.is-inactive {
+    color: #ff9a9f;
+  }
+
+  .pizzaro-users-mobile-role {
+    color: #b7b7c0;
+  }
+
+  .pizzaro-users-actions {
+    gap: 5px;
+  }
+
+  .pizzaro-users-actions .pizzaro-admin-row-action {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .pizzaro-users-access-toggle {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+
+  .pizzaro-users-access-toggle > span {
+    top: 15px;
+    left: 9px;
+  }
+}
+
+@media (max-width: 760px) {
+  .pizzaro-admin-sidebar {
+    position: relative;
+    top: auto;
+    min-height: 0;
+    padding: 8px 16px;
+    border-right: 0;
+  }
+
+  .pizzaro-admin-sidebar nav {
+    min-height: 0;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .pizzaro-admin-sidebar .admin-brand {
+    min-width: 0;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .pizzaro-admin-sidebar .admin-brand-logo {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .pizzaro-admin-sidebar .admin-mobile-menu-toggle {
+    display: inline-flex;
+    color: #f3f3f4;
+  }
+
+  .pizzaro-admin-sidebar .admin-nav-heading,
+  .pizzaro-admin-sidebar .admin-nav-list,
+  .pizzaro-admin-sidebar .admin-sidebar-user {
+    display: none;
+  }
+
+  .pizzaro-admin-sidebar.is-mobile-open {
+    position: fixed;
+    z-index: 1500;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
+    padding: 24px 20px;
+  }
+
+  .pizzaro-admin-sidebar.is-mobile-open nav {
+    min-height: calc(100vh - 48px);
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pizzaro-admin-sidebar.is-mobile-open .admin-brand {
+    flex: 0 0 auto;
+    margin: 0 0 22px;
+    padding: 0 8px 20px;
+    border-bottom: 1px solid var(--pizzaro-border);
+  }
+
+  .pizzaro-admin-sidebar.is-mobile-open .admin-mobile-menu-toggle {
+    position: absolute;
+    top: 24px;
+    right: 20px;
+  }
+
+  .pizzaro-admin-sidebar.is-mobile-open .admin-nav-heading {
+    display: block;
+  }
+
+  .pizzaro-admin-sidebar.is-mobile-open .admin-nav-list {
+    display: block;
+    width: 100%;
+  }
+
+  .pizzaro-admin-sidebar.is-mobile-open .admin-sidebar-user {
+    display: flex;
+    margin-top: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .pizzaro-users-overview {
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .pizzaro-users-overview > div {
+    min-width: 0;
+  }
+
+  .pizzaro-users-overview span {
+    font-size: 12px;
+  }
+
+  .pizzaro-users-overview strong {
+    font-size: 20px;
+  }
+
+  .pizzaro-users-filters {
+    gap: 18px;
+    margin-top: 14px;
+  }
+
+  .pizzaro-users-filter {
+    min-height: 44px;
+  }
+
+  .pizzaro-users-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 0 10px;
+  }
+
+  .pizzaro-users-search {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .pizzaro-users-toolbar > p {
+    font-size: 12px;
+  }
+
+  .pizzaro-users-table th {
+    height: 34px;
+    padding: 0 7px;
+  }
+
+  .pizzaro-users-table th:first-child,
+  .pizzaro-users-table td:first-child {
+    width: auto;
+    padding-left: 0;
+  }
+
+  .pizzaro-users-table th:last-child,
+  .pizzaro-users-table td:last-child {
+    width: 138px;
+    padding-right: 0;
+  }
+
+  .pizzaro-users-table td {
+    height: 74px;
+    padding: 9px 7px;
+  }
+
+  .pizzaro-users-identity {
+    gap: 9px;
+  }
+
+  .pizzaro-users-avatar.MuiAvatar-root {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .pizzaro-users-identity-copy strong {
+    font-size: 13px;
+  }
+
+  .pizzaro-users-identity-copy > span {
+    font-size: 11px;
+  }
+
+}
+
+.pizzaro-admin-form-card {
+  width: min(100%, 880px);
+  padding: clamp(20px, 3vw, 30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: #1b1b20;
+  color: #f7f7f8;
+}
+
+.pizzaro-admin-product-form {
+  width: min(100%, 980px);
+}
+
+.pizzaro-admin-form-card-heading {
+  margin-bottom: 24px;
+}
+
+.pizzaro-admin-form-card-heading h2 {
+  margin: 0;
+  color: #f7f7f8;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pizzaro-admin-form-card-heading p {
+  margin: 6px 0 0;
+  color: #b7b7c0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.pizzaro-admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 18px;
+}
+
+.pizzaro-admin-form-grid > .form-group {
+  min-width: 0;
+  margin: 0;
+}
+
+.pizzaro-admin-form-grid > .form-group.is-wide {
+  grid-column: 1 / -1;
+}
+
+.pizzaro-admin-form-card .form-group > label {
+  display: block;
+  margin: 0 0 8px;
+  color: #e7e7ea;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pizzaro-admin-form-card .form-control {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 7px;
+  background: #131316;
+  color: #f7f7f8;
+  font: inherit;
+  font-size: 14px;
+  color-scheme: dark;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.pizzaro-admin-form-card textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.pizzaro-admin-form-card .form-control::placeholder {
+  color: #a1a1aa;
+  opacity: 1;
+}
+
+.pizzaro-admin-form-card .form-control:focus {
+  border-color: #e5383b;
+  outline: 2px solid rgba(229, 56, 59, 0.25);
+  outline-offset: 1px;
+  background: #151518;
+  color: #fff;
+  box-shadow: none;
+}
+
+.pizzaro-admin-form-card .form-control.is-invalid {
+  border-color: #ff7478;
+}
+
+.pizzaro-admin-form-card .invalid-feedback {
+  margin-top: 6px;
+  color: #ff9a9f;
+  font-size: 12px;
+}
+
+.pizzaro-admin-form-card .form-group > small {
+  display: block;
+  margin-top: 8px;
+  color: #b7b7c0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.pizzaro-admin-form-card .form-control[type='file'] {
+  min-height: auto;
+  padding: 8px;
+}
+
+.pizzaro-admin-form-card .form-control[type='file']::file-selector-button {
+  min-height: 30px;
+  margin-right: 10px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 5px;
+  background: #29292f;
+  color: #f7f7f8;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pizzaro-admin-form-card .form-control[type='file']::file-selector-button:hover {
+  background: #35353c;
+}
+
+.pizzaro-admin-image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.pizzaro-admin-image-item {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+}
+
+.pizzaro-admin-image-item img {
+  width: 112px;
+  height: 96px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 7px;
+  background: #111;
+  object-fit: cover;
+}
+
+.pizzaro-admin-image-remove {
+  min-height: 32px;
+  padding: 0 8px;
+  border: 1px solid rgba(255, 116, 120, 0.48);
+  border-radius: 6px;
+  background: transparent;
+  color: #ff9a9f;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pizzaro-admin-image-remove:hover {
+  border-color: #ff7478;
+  background: rgba(229, 56, 59, 0.12);
+}
+
+.pizzaro-admin-image-remove:focus-visible {
+  outline: 2px solid #ff7478;
+  outline-offset: 2px;
+}
+
+.pizzaro-admin-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pizzaro-admin-form-actions .pizzaro-admin-primary-action,
+.pizzaro-admin-form-actions .pizzaro-admin-secondary-action {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
+.pizzaro-admin-form-actions .pizzaro-admin-secondary-action {
+  min-height: 40px;
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #e0e0e4;
+  font-size: 13px;
+}
+
+.pizzaro-admin-form-actions .pizzaro-admin-secondary-action:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.pizzaro-admin-form-actions .pizzaro-admin-primary-action:disabled {
+  border-color: #59595f;
+  background: #59595f;
+  color: #e1e1e4;
+}
+
+.pizzaro-admin-page-heading > .pizzaro-admin-secondary-action {
+  min-height: 36px;
+}
+
+.pizzaro-promo > div > p:last-child {
+  max-width: 58ch;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .pizzaro-admin-page-heading > .pizzaro-admin-secondary-action {
+    width: auto;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .pizzaro-admin-form-card {
+    padding: 18px 16px;
+  }
+
+  .pizzaro-admin-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .pizzaro-admin-form-grid > .form-group.is-wide {
+    grid-column: auto;
+  }
+
+  .pizzaro-admin-form-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .pizzaro-admin-form-actions .pizzaro-admin-primary-action,
+  .pizzaro-admin-form-actions .pizzaro-admin-secondary-action {
+    width: 100%;
+    min-height: 44px;
+  }
+}

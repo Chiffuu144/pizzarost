@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
-import MetaData from '../Layout/MetaData'
-import Sidebar from './SideBar'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useDispatch, useSelector } from 'react-redux'
+import AdminPageLayout from './AdminPageLayout'
 import { updateProduct, getProductDetails, clearErrors } from '../../actions/productActions'
 import { UPDATE_PRODUCT_RESET } from '../../constants/productConstants'
 import productCategories from '../../constants/productCategories'
@@ -91,110 +90,114 @@ const UpdateProduct = () => {
 
     if (!currentProduct) {
         return (
-            <>
-                <MetaData title="Update Product" />
-                <div className="row">
-                    <div className="col-12 col-md-2"><Sidebar /></div>
-                    <div className="col-12 col-md-10"><p className="text-center my-5" role="status">Loading product...</p></div>
-                </div>
-            </>
+            <AdminPageLayout
+                title="Edit product"
+                description="Update menu details, availability, and images."
+                actions={<Link to="/admin/products" className="pizzaro-admin-secondary-action">Back to products</Link>}
+            >
+                <p className="pizzaro-admin-page-loading" role="status">Loading product details…</p>
+            </AdminPageLayout>
         )
     }
 
     return (
-        <>
-            <MetaData title={`Update ${currentProduct.name}`} />
-            <div className="row">
-                <div className="col-12 col-md-2"><Sidebar /></div>
-                <div className="col-12 col-md-10">
-                    <div className="wrapper my-5">
-                        <form className="shadow-lg" onSubmit={formik.handleSubmit} encType="multipart/form-data" noValidate>
-                            <h1 className="mb-4">Update Product</h1>
+        <AdminPageLayout
+            title="Edit product"
+            description="Update menu details, availability, and images."
+            actions={<Link to="/admin/products" className="pizzaro-admin-secondary-action">Back to products</Link>}
+        >
+            <form className="pizzaro-admin-form-card pizzaro-admin-product-form" onSubmit={formik.handleSubmit} encType="multipart/form-data" noValidate>
+                <header className="pizzaro-admin-form-card-heading">
+                    <h2>Product details</h2>
+                    <p>Changes will appear in the Pizzaro menu once saved.</p>
+                </header>
+                <div className="pizzaro-admin-form-grid">
 
-                            <div className="form-group">
-                                <label htmlFor="name_field">Name</label>
-                                <input id="name_field" name="name" className={`form-control ${fieldError('name') ? 'is-invalid' : ''}`}
-                                    value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                {fieldError('name')}
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="price_field">Price</label>
-                                <input id="price_field" name="price" type="number" min="0.01" step="0.01"
-                                    className={`form-control ${fieldError('price') ? 'is-invalid' : ''}`}
-                                    value={formik.values.price} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                {fieldError('price')}
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="description_field">Description</label>
-                                <textarea id="description_field" name="description" rows="5"
-                                    className={`form-control ${fieldError('description') ? 'is-invalid' : ''}`}
-                                    value={formik.values.description} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                {fieldError('description')}
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="category_field">Category</label>
-                                <select id="category_field" name="category" className={`form-control ${fieldError('category') ? 'is-invalid' : ''}`}
-                                    value={formik.values.category} onChange={formik.handleChange} onBlur={formik.handleBlur}>
-                                    {!productCategories.includes(formik.values.category) && formik.values.category && (
-                                        <option value={formik.values.category}>{formik.values.category} (existing category)</option>
-                                    )}
-                                    <option value="">Choose a category</option>
-                                    {productCategories.map(category => <option key={category} value={category}>{category}</option>)}
-                                </select>
-                                {fieldError('category')}
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="stock_field">Stock</label>
-                                <input id="stock_field" name="stock" type="number" min="0" step="1"
-                                    className={`form-control ${fieldError('stock') ? 'is-invalid' : ''}`}
-                                    value={formik.values.stock} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                {fieldError('stock')}
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="seller_field">Seller Name</label>
-                                <input id="seller_field" name="seller" className={`form-control ${fieldError('seller') ? 'is-invalid' : ''}`}
-                                    value={formik.values.seller} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                {fieldError('seller')}
-                            </div>
+                    <div className="form-group">
+                        <label htmlFor="name_field">Name</label>
+                        <input id="name_field" name="name" className={`form-control ${fieldError('name') ? 'is-invalid' : ''}`}
+                            value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                        {fieldError('name')}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="price_field">Price</label>
+                        <input id="price_field" name="price" type="number" min="0.01" step="0.01"
+                            className={`form-control ${fieldError('price') ? 'is-invalid' : ''}`}
+                            value={formik.values.price} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                        {fieldError('price')}
+                    </div>
+                    <div className="form-group is-wide">
+                        <label htmlFor="description_field">Description</label>
+                        <textarea id="description_field" name="description" rows="4"
+                            className={`form-control ${fieldError('description') ? 'is-invalid' : ''}`}
+                            value={formik.values.description} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                        {fieldError('description')}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="category_field">Category</label>
+                        <select id="category_field" name="category" className={`form-control ${fieldError('category') ? 'is-invalid' : ''}`}
+                            value={formik.values.category} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+                            {!productCategories.includes(formik.values.category) && formik.values.category && (
+                                <option value={formik.values.category}>{formik.values.category} (existing category)</option>
+                            )}
+                            <option value="">Choose a category</option>
+                            {productCategories.map(category => <option key={category} value={category}>{category}</option>)}
+                        </select>
+                        {fieldError('category')}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="stock_field">Stock</label>
+                        <input id="stock_field" name="stock" type="number" min="0" step="1"
+                            className={`form-control ${fieldError('stock') ? 'is-invalid' : ''}`}
+                            value={formik.values.stock} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                        {fieldError('stock')}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="seller_field">Seller name</label>
+                        <input id="seller_field" name="seller" className={`form-control ${fieldError('seller') ? 'is-invalid' : ''}`}
+                            value={formik.values.seller} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                        {fieldError('seller')}
+                    </div>
 
-                            <div className="form-group">
-                                <label htmlFor="product_images">Product images</label>
-                                <input id="product_images" name="images" type="file" className="form-control"
-                                    onChange={handleImageChange} multiple accept="image/jpeg,image/png,image/webp"
-                                    aria-describedby="product-images-help" />
-                                <small id="product-images-help" className="form-text text-muted">
-                                    Keep or add 1–10 JPEG, PNG, or WebP images, up to 5 MB each.
-                                </small>
-                                {fieldError('images')}
-                                <div className="d-flex flex-wrap">
-                                    {retainedImages.map((image, index) => (
-                                        <div className="d-inline-flex flex-column align-items-center mr-2" key={image.public_id}>
-                                            <img src={image.url} alt={`Existing product image ${index + 1}`} className="mt-3" width="80" height="72" />
-                                            <button type="button" className="btn btn-sm btn-outline-danger mt-1"
-                                                onClick={() => setRemovedImageIds(ids => [...ids, image.public_id])}>
-                                                Remove image {index + 1}
-                                            </button>
-                                        </div>
-                                    ))}
-                                    {imagesPreview.map((preview, index) => (
-                                        <div className="d-inline-flex flex-column align-items-center mr-2" key={`${preview}-${index}`}>
-                                            <img src={preview} alt={`New product image preview ${index + 1}`} className="mt-3" width="80" height="72" />
-                                            <button type="button" className="btn btn-sm btn-outline-danger mt-1" onClick={() => removeNewImage(index)}>
-                                                Remove new image {index + 1}
-                                            </button>
-                                        </div>
-                                    ))}
+                    <div className="form-group is-wide pizzaro-admin-image-field">
+                        <label htmlFor="product_images">Product images</label>
+                        <input id="product_images" name="images" type="file" className="form-control"
+                            onChange={handleImageChange} multiple accept="image/jpeg,image/png,image/webp"
+                            aria-describedby="product-images-help" />
+                        <small id="product-images-help" className="form-text">
+                            Keep or add 1–10 JPEG, PNG, or WebP images, up to 5 MB each.
+                        </small>
+                        {fieldError('images')}
+                        <div className="pizzaro-admin-image-list">
+                            {retainedImages.map((image, index) => (
+                                <div className="pizzaro-admin-image-item" key={image.public_id}>
+                                    <img src={image.url} alt={`Existing product image ${index + 1}`} width="112" height="96" />
+                                    <button type="button" className="pizzaro-admin-image-remove"
+                                        onClick={() => setRemovedImageIds(ids => [...ids, image.public_id])}>
+                                        Remove image {index + 1}
+                                    </button>
                                 </div>
-                            </div>
-                            <button type="submit" className="btn btn-block py-3"
-                                disabled={loading || formik.isSubmitting || !formik.isValid}>
-                                {loading || formik.isSubmitting ? 'Saving...' : 'Save changes'}
-                            </button>
-                        </form>
+                            ))}
+                            {imagesPreview.map((preview, index) => (
+                                <div className="pizzaro-admin-image-item" key={`${preview}-${index}`}>
+                                    <img src={preview} alt={`New product image preview ${index + 1}`} width="112" height="96" />
+                                    <button type="button" className="pizzaro-admin-image-remove" onClick={() => removeNewImage(index)}>
+                                        Remove new image {index + 1}
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </>
+                <footer className="pizzaro-admin-form-actions">
+                    <Link to="/admin/products" className="pizzaro-admin-secondary-action">Cancel</Link>
+                    <button type="submit" className="pizzaro-admin-primary-action"
+                        disabled={loading || formik.isSubmitting || !formik.isValid}>
+                        {loading || formik.isSubmitting ? 'Saving…' : 'Save changes'}
+                    </button>
+                </footer>
+            </form>
+        </AdminPageLayout>
     )
 }
 
