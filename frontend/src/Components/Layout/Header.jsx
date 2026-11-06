@@ -131,19 +131,34 @@ export const Header = () => {
                                 <span className="header-user-name" title={user.name}>{user.name}</span>
                             </Link>
 
-                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropDownMenuButton">
+                            <div className="dropdown-menu dropdown-menu-right pizzaro-account-menu" aria-labelledby="dropDownMenuButton">
+                                <div className="pizzaro-account-menu-heading">
+                                    <span>Signed in as</span>
+                                    <strong>{user.name}</strong>
+                                    <span className="pizzaro-account-menu-email">{user.email}</span>
+                                </div>
                                 {user.role === 'admin' && (
-                                <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
+                                    <Link className="dropdown-item pizzaro-account-menu-item" to="/dashboard">
+                                        <i className="fa fa-th-large" aria-hidden="true" />
+                                        <span>Dashboard</span>
+                                    </Link>
                                 )}
-                                <Link className="dropdown-item" to="/orders/me">Orders</Link>
-                                <Link className="dropdown-item" to="/me">Profile</Link>
+                                <Link className="dropdown-item pizzaro-account-menu-item" to="/orders/me">
+                                    <i className="fa fa-list-alt" aria-hidden="true" />
+                                    <span>Orders</span>
+                                </Link>
+                                <Link className="dropdown-item pizzaro-account-menu-item" to="/me">
+                                    <i className="fa fa-user" aria-hidden="true" />
+                                    <span>Profile</span>
+                                </Link>
 
                                 <button
                                     type="button"
-                                    className="dropdown-item text-danger"
+                                    className="dropdown-item text-danger pizzaro-account-menu-item pizzaro-account-menu-logout"
                                     onClick={logoutHandler}
                                 >
-                                    Logout
+                                    <i className="fa fa-sign-out" aria-hidden="true" />
+                                    <span>Logout</span>
                                 </button>
                             </div>
                         </div>
