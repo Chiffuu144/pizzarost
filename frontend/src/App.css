@@ -3220,6 +3220,42 @@ footer {
   -webkit-line-clamp: 2;
 }
 
+.pizzaro-product-card .pizzaro-product-card-stock {
+  display: flex;
+  min-height: 1.1rem;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.45rem;
+  color: #b7b7c0;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.pizzaro-product-card .pizzaro-stock-indicator {
+  width: 0.45rem;
+  height: 0.45rem;
+}
+
+.pizzaro-product-card .pizzaro-product-card-stock.is-available .pizzaro-stock-indicator,
+.pizzaro-product-stock .pizzaro-stock-indicator.is-available {
+  background: #78c89b;
+}
+
+.pizzaro-product-card .pizzaro-product-card-stock.is-low-stock,
+.pizzaro-product-stock.is-low-stock {
+  color: #ffb36b;
+}
+
+.pizzaro-product-card .pizzaro-product-card-stock.is-low-stock .pizzaro-stock-indicator,
+.pizzaro-product-stock.is-low-stock .pizzaro-stock-indicator {
+  background: #ffb36b;
+}
+
+.pizzaro-product-card .pizzaro-product-card-stock.is-out-of-stock,
+.pizzaro-product-stock.is-out-of-stock {
+  color: #ff858b;
+}
+
 .pizzaro-product-card .card-text {
   margin: auto 0 0.9rem;
   color: var(--pizza-ink);
@@ -8163,6 +8199,10 @@ nav.navbar.header-navbar.pizzaro-editorial-navbar {
   margin: 0 0 1.1rem;
   color: #d3cdc4;
   font-size: 0.84rem;
+}
+
+.pizzaro-product-stock.is-available {
+  color: #d3cdc4;
 }
 
 .pizzaro-stock-indicator {

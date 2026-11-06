@@ -8,9 +8,15 @@ const Product = ({ product }) => {
     const dispatch = useDispatch()
     const location = useLocation()
     const navigate = useNavigate()
+    const stock = Number(product.stock) || 0
+    const stockLabel = stock === 0
+        ? 'Out of stock'
+        : stock <= 5
+            ? `Only ${stock} left`
+            : `${stock} available`
 
     const addToCart = async () => {
-        if (product.stock < 1) {
+        if (stock < 1) {
             toast.error(`${product.name} is currently out of stock.`)
             return
         }
@@ -54,12 +60,16 @@ const Product = ({ product }) => {
                         </div>
                     )}
                     {product.description && <p className="pizzaro-product-description">{product.description}</p>}
+                    <p className={`pizzaro-product-stock pizzaro-product-card-stock${stock > 0 ? ' is-available' : ' is-out-of-stock'}${stock > 0 && stock <= 5 ? ' is-low-stock' : ''}`}>
+                        <span className="pizzaro-stock-indicator" aria-hidden="true" />
+                        {stockLabel}
+                    </p>
                     <p className="card-text">{formatCurrency(product.price)}</p>
                     <div className="pizzaro-product-actions">
                         <Link to={`/product/${product._id}`} className="pizzaro-product-details">View Details</Link>
-                        <button type="button" className="pizzaro-add-cart" onClick={addToCart} disabled={product.stock < 1}>
+                        <button type="button" className="pizzaro-add-cart" onClick={addToCart} disabled={stock < 1}>
                             <i className="fa fa-shopping-bag" aria-hidden="true" />
-                            {product.stock < 1 ? 'Sold Out' : 'Add to Cart'}
+                            {stock < 1 ? 'Sold Out' : 'Add to Cart'}
                         </button>
                     </div>
                 </div>

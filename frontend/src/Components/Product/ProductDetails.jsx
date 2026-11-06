@@ -54,6 +54,12 @@ const ProductDetails = () => {
     const { loading, error, product } = useSelector(state => state.productDetails)
     const { user } = useSelector(state => state.auth)
     const [quantity, setQuantity] = useState(1)
+    const stock = Number(product.stock) || 0
+    const stockLabel = stock === 0
+        ? 'Out of stock'
+        : stock <= 5
+            ? `Only ${stock} left in stock`
+            : `${stock} available`
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
     const [errorReview, setErrorReview] = useState('')
@@ -125,8 +131,8 @@ const ProductDetails = () => {
     }
 
     const addToCart = async () => {
-        if (quantity > product.stock) {
-            toast.error(`Only ${product.stock} ${product.name} available right now.`)
+        if (quantity > stock) {
+            toast.error(`Only ${stock} ${product.name} available right now.`)
             return
         }
 
@@ -168,9 +174,9 @@ const ProductDetails = () => {
 
                         <div className="pizzaro-product-purchase">
                             <p id="product_price">{formatCurrency(product.price)}</p>
-                            <p className="pizzaro-product-stock">
-                                <span className={`pizzaro-stock-indicator${product.stock > 0 ? ' is-available' : ''}`} aria-hidden="true" />
-                                {product.stock > 0 ? 'In stock' : 'Out of stock'}
+                            <p className={`pizzaro-product-stock${stock > 0 ? ' is-available' : ' is-out-of-stock'}${stock > 0 && stock <= 5 ? ' is-low-stock' : ''}`}>
+                                <span className={`pizzaro-stock-indicator${stock > 0 ? ' is-available' : ''}`} aria-hidden="true" />
+                                {stockLabel}
                             </p>
                             <div className="pizzaro-product-order-controls">
                                 <div className="pizzaro-quantity-control" aria-label="Choose quantity">
@@ -184,11 +190,11 @@ const ProductDetails = () => {
                                         type="number"
                                         aria-label="Quantity"
                                         min="1"
-                                        max={product.stock}
+                                        max={stock}
                                         value={quantity}
                                         onChange={event => {
                                             const nextQuantity = Number(event.target.value)
-                                            if (Number.isInteger(nextQuantity) && nextQuantity >= 1 && nextQuantity <= product.stock) {
+                                            if (Number.isInteger(nextQuantity) && nextQuantity >= 1 && nextQuantity <= stock) {
                                                 setQuantity(nextQuantity)
                                             }
                                         }}
@@ -196,19 +202,19 @@ const ProductDetails = () => {
                                     <button
                                         type="button"
                                         aria-label="Increase quantity"
-                                        disabled={quantity >= product.stock}
-                                        onClick={() => setQuantity(current => Math.min(product.stock, current + 1))}
+                                        disabled={quantity >= stock}
+                                        onClick={() => setQuantity(current => Math.min(stock, current + 1))}
                                     >+</button>
                                 </div>
                                 <button
                                     type="button"
                                     id="cart_btn"
                                     className="pizzaro-product-add-button"
-                                    disabled={product.stock === 0}
+                                    disabled={stock === 0}
                                     onClick={addToCart}
                                 >
                                     <i className="fa fa-shopping-bag" aria-hidden="true" />
-                                    {product.stock === 0 ? 'Sold out' : 'Add to cart'}
+                                    {stock === 0 ? 'Sold out' : 'Add to cart'}
                                 </button>
                             </div>
                         </div>
